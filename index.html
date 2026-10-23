@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10253f">
+<meta name="description" content="Offline-first community helpdesk and local action tracker for Gombe.">
+<title>Gombe Community Helpdesk — Offline</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section id="auth-screen" class="auth-screen">
+  <div class="auth-brand"><span class="brand-mark">G</span><div><strong>Gombe Community Helpdesk</strong><small>OFFLINE COMMUNITY ACTION PLATFORM</small></div></div>
+  <div class="auth-layout">
+    <div class="auth-intro"><span class="eyebrow">LOCAL ACTION. REAL IMPACT.</span><h1>Better communities start with people who care.</h1><p>Record community issues, coordinate tasks, and organize local resources—even when the internet is unavailable.</p><div class="auth-feature"><span>✓</span><div><strong>Works offline</strong><small>Your workspace is saved on this device.</small></div></div><div class="auth-feature"><span>✓</span><div><strong>One organized workspace</strong><small>Issues, tasks, contacts and resources in one place.</small></div></div><div class="auth-feature"><span>✓</span><div><strong>Built for community teams</strong><small>A practical open-source demonstration project.</small></div></div></div>
+    <div class="auth-card"><div class="auth-tabs"><button type="button" class="auth-tab active" data-auth-tab="login">Sign in</button><button type="button" class="auth-tab" data-auth-tab="register">Create account</button></div>
+      <div id="auth-message" class="auth-message" role="alert" hidden></div>
+      <form id="login-form" class="auth-form"><span class="eyebrow">WELCOME BACK</span><h2>Sign in to your workspace</h2><p>Enter the details for your local account.</p><label>Email address<input name="email" type="email" autocomplete="username" placeholder="you@example.com" required></label><label>Password<input name="password" type="password" autocomplete="current-password" placeholder="Enter your password" required minlength="6"></label><button class="primary-btn auth-submit" type="submit">Sign in →</button><small class="auth-switch-note">New here? <button type="button" data-auth-tab="register">Create an account</button></small></form>
+      <form id="register-form" class="auth-form" hidden><span class="eyebrow">GET STARTED</span><h2>Create your account</h2><p>Your first account becomes the workspace owner on this device.</p><label>Full name<input name="name" autocomplete="name" placeholder="Your full name" required maxlength="80"></label><label>Email address<input name="email" type="email" autocomplete="email" placeholder="you@example.com" required></label><label>Create password<input name="password" type="password" autocomplete="new-password" placeholder="At least 6 characters" required minlength="6"></label><label>Confirm password<input name="confirm" type="password" autocomplete="new-password" placeholder="Re-enter password" required minlength="6"></label><button class="primary-btn auth-submit" type="submit">Create account →</button><small class="auth-switch-note">Already registered? <button type="button" data-auth-tab="login">Sign in</button></small></form>
+      <p class="auth-local-note">🔒 Offline demo: account details are stored only in this browser. This is not secure authentication for sensitive or production use.</p>
+    </div>
+  </div><div class="auth-footer">Gombe Community Helpdesk · Open-source learning project</div>
+</section>
+<div class="app-shell" id="app-shell" hidden>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand"><span class="brand-mark">G</span><span><strong>Gombe Helpdesk</strong><small>COMMUNITY SYSTEM</small></span></div>
+    <div class="offline-status"><span class="pulse"></span><span><strong>Offline-ready</strong><small>Data stays on this device</small></span></div>
+    <nav class="nav-list" aria-label="Main navigation">
+      <button class="nav-link active" data-view="dashboard"><span>▦</span> Dashboard</button>
+      <button class="nav-link" data-view="reports"><span>▤</span> Issue Reports <b id="nav-report-count">0</b></button>
+      <button class="nav-link" data-view="tasks"><span>✓</span> Action Tasks</button>
+      <button class="nav-link" data-view="directory"><span>♙</span> Community Directory</button>
+      <button class="nav-link" data-view="resources"><span>▣</span> Resource Register</button>
+      <div class="nav-caption">MANAGEMENT</div>
+      <button class="nav-link" data-view="analytics"><span>▥</span> Analytics & Reports</button>
+      <button class="nav-link" data-view="backup"><span>⇅</span> Backup & Restore</button>
+      <button class="nav-link" data-view="settings"><span>⚙</span> Settings</button>
+      <button class="nav-link" data-view="about"><span>ⓘ</span> About & Help</button>
+    </nav>
+    <div class="sidebar-bottom"><div class="avatar">GH</div><div><strong>Local Workspace</strong><small>Offline administrator</small></div><span class="green-dot"></span></div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar">
+      <button id="menu-toggle" class="icon-btn mobile-menu" aria-label="Toggle navigation">☰</button>
+      <div><div class="breadcrumb">Community workspace <span>/</span> <strong id="page-crumb">Dashboard</strong></div><div class="page-date" id="today-label"></div></div>
+      <div class="top-actions"><span class="connection-pill"><i></i> Offline capable</span><button id="quick-add" class="primary-btn">＋ New report</button><button id="logout-btn" class="secondary-btn">Sign out</button></div>
+    </header>
+    <div class="content">
+      <section class="view active" id="view-dashboard">
+        <div class="welcome-row"><div><span class="eyebrow">COMMUNITY OVERVIEW</span><h1>Good day. Let's make a difference.</h1><p>Track local issues, coordinate action, and keep community information organized.</p></div><div class="date-chip" id="date-chip">Local workspace</div></div>
+        <div class="stat-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total reports</span><span class="stat-icon blue">▤</span></div><strong id="stat-total">0</strong><small><span class="neutral-text">All recorded community issues</span></small></article>
+          <article class="stat-card"><div class="stat-top"><span>Needs attention</span><span class="stat-icon amber">◷</span></div><strong id="stat-open">0</strong><small>Open or in-progress reports</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Resolved</span><span class="stat-icon green">✓</span></div><strong id="stat-resolved">0</strong><small>Marked as completed</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Action tasks</span><span class="stat-icon purple">☷</span></div><strong id="stat-tasks">0</strong><small>Tasks not yet completed</small></article>
+        </div>
+        <div class="dashboard-grid">
+          <section class="panel"><div class="panel-head"><div><span class="eyebrow">LATEST ACTIVITY</span><h2>Recent issue reports</h2></div><button class="text-action" data-go="reports">View all →</button></div><div id="dashboard-reports" class="compact-list"></div></section>
+          <section class="panel"><div class="panel-head"><div><span class="eyebrow">QUICK ACTIONS</span><h2>What would you like to do?</h2></div></div>
+            <div class="quick-grid">
+              <button class="quick-action" data-modal="report"><span class="qa-icon green-bg">＋</span><strong>Report an issue</strong><small>Record a new community problem</small></button>
+              <button class="quick-action" data-modal="task"><span class="qa-icon blue-bg">✓</span><strong>Create a task</strong><small>Organize follow-up action</small></button>
+              <button class="quick-action" data-modal="contact"><span class="qa-icon purple-bg">♙</span><strong>Add a contact</strong><small>Save a community contact</small></button>
+              <button class="quick-action" data-go="backup"><span class="qa-icon amber-bg">⇅</span><strong>Backup data</strong><small>Export your local workspace</small></button>
+            </div>
+          </section>
+        </div>
+        <section class="panel bottom-panel"><div class="panel-head"><div><span class="eyebrow">WORKFLOW</span><h2>Community response overview</h2></div><span class="tiny-note">Based on locally saved reports</span></div><div id="status-overview" class="status-overview"></div></section>
+      </section>
+
+      <section class="view" id="view-reports">
+        <div class="view-heading"><div><span class="eyebrow">ISSUE MANAGEMENT</span><h1>Community issue reports</h1><p>Create, review, search, and update reports from your local workspace.</p></div><button class="primary-btn" data-modal="report">＋ Add report</button></div>
+        <div class="toolbar panel"><label class="search-control">⌕ <input id="report-search" placeholder="Search title, area, category..." type="search"></label><select id="report-status-filter"><option value="All">All statuses</option><option>Open</option><option>In progress</option><option>Resolved</option></select><select id="report-category-filter"><option value="All">All categories</option><option>Roads & transport</option><option>Water supply</option><option>Waste & sanitation</option><option>Electricity & streetlights</option><option>Public facilities</option><option>Safety concern</option><option>Other</option></select><button id="clear-report-filters" class="secondary-btn">Clear filters</button></div>
+        <div class="panel table-panel"><div class="table-summary"><span id="report-result-count">0 reports</span><span class="tiny-note">Stored on this device</span></div><div class="table-wrap"><table><thead><tr><th>Issue</th><th>Area / ward</th><th>Category</th><th>Priority</th><th>Status</th><th>Reported</th><th>Actions</th></tr></thead><tbody id="reports-table"></tbody></table></div><div id="reports-empty" class="empty-state" hidden><div>▤</div><strong>No matching reports</strong><p>Try changing your filters or add a new report.</p></div></div>
+      </section>
+
+      <section class="view" id="view-tasks">
+        <div class="view-heading"><div><span class="eyebrow">FOLLOW-UP PLANNING</span><h1>Action tasks</h1><p>Turn community reports into organized follow-up actions.</p></div><button class="primary-btn" data-modal="task">＋ New task</button></div>
+        <div class="toolbar panel"><label class="search-control">⌕ <input id="task-search" type="search" placeholder="Search tasks..."></label><select id="task-filter"><option value="All">All task statuses</option><option>Not started</option><option>In progress</option><option>Completed</option></select></div>
+        <div id="tasks-grid" class="cards-grid"></div><div id="tasks-empty" class="empty-state panel" hidden><div>✓</div><strong>No tasks found</strong><p>Create a task to plan a follow-up action.</p></div>
+      </section>
+
+      <section class="view" id="view-directory">
+        <div class="view-heading"><div><span class="eyebrow">LOCAL CONTACTS</span><h1>Community directory</h1><p>Keep a simple local directory of volunteers and community contacts.</p></div><button class="primary-btn" data-modal="contact">＋ Add contact</button></div>
+        <div class="toolbar panel"><label class="search-control">⌕ <input id="contact-search" type="search" placeholder="Search name, role, area..."></label><select id="contact-role-filter"><option value="All">All roles</option><option>Community volunteer</option><option>Ward representative</option><option>Service provider</option><option>Other</option></select></div>
+        <div id="contacts-grid" class="cards-grid"></div><div id="contacts-empty" class="empty-state panel" hidden><div>♙</div><strong>No contacts yet</strong><p>Add a contact to start your local directory.</p></div>
+      </section>
+
+      <section class="view" id="view-resources">
+        <div class="view-heading"><div><span class="eyebrow">COMMUNITY ASSETS</span><h1>Resource register</h1><p>Track shared equipment, supplies, and community resources.</p></div><button class="primary-btn" data-modal="resource">＋ Add resource</button></div>
+        <div class="toolbar panel"><label class="search-control">⌕ <input id="resource-search" type="search" placeholder="Search resource, location..."></label><select id="resource-condition-filter"><option value="All">All conditions</option><option>Good</option><option>Needs repair</option><option>Unavailable</option></select></div>
+        <div id="resources-grid" class="cards-grid"></div><div id="resources-empty" class="empty-state panel" hidden><div>▣</div><strong>No resources recorded</strong><p>Add community equipment or resources to track them.</p></div>
+      </section>
+
+      <section class="view" id="view-analytics">
+        <div class="view-heading"><div><span class="eyebrow">LOCAL INSIGHTS</span><h1>Analytics & reports</h1><p>Review status totals and export simple reports from your device.</p></div><button class="secondary-btn" id="export-csv">↓ Export issues CSV</button></div>
+        <div class="analytics-grid"><div class="panel"><div class="panel-head"><div><span class="eyebrow">BY STATUS</span><h2>Report status breakdown</h2></div></div><div id="analytics-status"></div></div><div class="panel"><div class="panel-head"><div><span class="eyebrow">BY CATEGORY</span><h2>Issue categories</h2></div></div><div id="analytics-category"></div></div></div>
+        <div class="panel report-insight"><div class="panel-head"><div><span class="eyebrow">SUMMARY</span><h2>Workspace summary</h2></div></div><div id="summary-text" class="summary-text"></div></div>
+      </section>
+
+      <section class="view" id="view-backup">
+        <div class="view-heading"><div><span class="eyebrow">DATA MANAGEMENT</span><h1>Backup & restore</h1><p>Keep your records safe when moving between devices or testing new features.</p></div></div>
+        <div class="backup-grid">
+          <article class="panel backup-card"><div class="backup-icon green-bg">↓</div><h2>Export a backup</h2><p>Download your reports, tasks, contacts, resources, and settings as one JSON file.</p><button class="primary-btn" id="export-json">Download backup</button></article>
+          <article class="panel backup-card"><div class="backup-icon blue-bg">↑</div><h2>Restore a backup</h2><p>Import a backup file into this browser. Existing local data will be replaced after confirmation.</p><label class="secondary-btn file-button">Choose backup file<input type="file" id="import-json" accept=".json,application/json"></label></article>
+          <article class="panel backup-card"><div class="backup-icon amber-bg">▤</div><h2>Export issue list</h2><p>Save issue reports as CSV so you can open them in Excel or another spreadsheet application.</p><button class="secondary-btn" id="export-csv-backup">Export CSV</button></article>
+        </div>
+        <div class="panel storage-panel"><div class="panel-head"><div><span class="eyebrow">LOCAL STORAGE</span><h2>Current workspace data</h2></div><span class="storage-badge">This device</span></div><div id="storage-details"></div><p class="warning-note">Important: browser storage can be cleared by browser settings or device cleanup. Export backups regularly. This prototype does not sync data between devices.</p><button class="danger-btn" id="clear-all-data">Clear all workspace data</button></div>
+      </section>
+
+      <section class="view" id="view-settings">
+        <div class="view-heading"><div><span class="eyebrow">PREFERENCES</span><h1>Workspace settings</h1><p>Personalize this offline workspace on your device.</p></div></div>
+        <div class="settings-grid"><section class="panel"><div class="panel-head"><div><span class="eyebrow">GENERAL</span><h2>Workspace details</h2></div></div><form id="settings-form" class="settings-form"><label>Workspace name<input name="workspaceName" maxlength="70" placeholder="Gombe Community Helpdesk"></label><label>Default area / ward<input name="defaultArea" maxlength="70" placeholder="e.g. Pantami"></label><label>Display language<select name="language"><option value="English">English</option><option value="Hausa (planned)">Hausa (planned)</option></select></label><label class="toggle-row"><span><strong>Dark appearance</strong><small>Use a darker interface in this browser</small></span><input type="checkbox" name="darkMode"></label><button class="primary-btn" type="submit">Save settings</button></form></section>
+        <section class="panel"><div class="panel-head"><div><span class="eyebrow">DATA & PRIVACY</span><h2>Before you begin</h2></div></div><ul class="help-list"><li><strong>Local by design</strong><p>Your information stays in this browser's local storage unless you export it.</p></li><li><strong>No account system</strong><p>This demo does not provide secure logins or role-based permissions.</p></li><li><strong>Back up regularly</strong><p>Download a JSON backup before clearing browser data or moving devices.</p></li><li><strong>Use sample information</strong><p>Avoid storing sensitive personal information or confidential reports.</p></li></ul></section></div>
+      </section>
+
+      <section class="view" id="view-about">
+        <div class="view-heading"><div><span class="eyebrow">PROJECT GUIDE</span><h1>About this project</h1><p>A practical offline-first project for learning and open-source collaboration.</p></div></div>
+        <div class="about-grid"><section class="panel about-main"><div class="about-logo">G</div><h2>Gombe Community Helpdesk</h2><p>A local-first prototype for recording community issues, organizing follow-up tasks, keeping a contact directory, and tracking shared resources.</p><div class="tag-row"><span>HTML</span><span>CSS</span><span>JavaScript</span><span>LocalStorage</span><span>Offline-first</span></div><h3>Suggested next contributions</h3><ul><li>Add Hausa translations for all interface text.</li><li>Add keyboard navigation and accessibility tests.</li><li>Add CSV exports for tasks and resources.</li><li>Introduce IndexedDB for larger datasets.</li><li>Build an optional secure backend for shared reporting.</li></ul></section><section class="panel"><div class="panel-head"><div><span class="eyebrow">HOW TO USE</span><h2>Quick guide</h2></div></div><ol class="help-list numbered"><li><strong>Record an issue</strong><p>Give it a clear title, area, category, priority, and description.</p></li><li><strong>Track progress</strong><p>Update the status when action begins or the issue is resolved.</p></li><li><strong>Plan follow-up</strong><p>Create a task with an owner and due date.</p></li><li><strong>Protect your data</strong><p>Use Backup & Restore to export a copy regularly.</p></li></ol></section></div>
+        <div class="notice"><strong>Prototype notice:</strong> This is a learning project, not an official government service. It does not contact authorities or guarantee that reported issues will be addressed.</div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="modal-backdrop" id="modal-backdrop" hidden>
+  <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-head"><div><span class="eyebrow">LOCAL WORKSPACE</span><h2 id="modal-title">Add item</h2></div><button class="icon-btn" id="modal-close" aria-label="Close dialog">×</button></div>
+    <form id="modal-form"><div id="modal-fields" class="modal-fields"></div><div class="modal-actions"><button type="button" class="secondary-btn" id="modal-cancel">Cancel</button><button type="submit" class="primary-btn">Save item</button></div></form>
+  </section>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="app.js"></script>
+</body>
+</html>
